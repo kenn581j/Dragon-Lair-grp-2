@@ -15,6 +15,10 @@ namespace DragonsLair
              * TODO: Calculate for each team how many times they have won
              * Sort based on number of matches won (descending)
              */
+            Tournament t;
+            t = tournamentRepository.GetTournament(tournamentName);
+            t.GetTeams()
+
             Console.WriteLine("Implement this method!");
         }
 
