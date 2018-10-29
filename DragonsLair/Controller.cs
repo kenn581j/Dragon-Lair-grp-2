@@ -11,13 +11,13 @@ namespace DragonsLair
 
         public void ShowScore(string tournamentName)
         {
-            Tournament tName = tournamentRepository.GetTournament(tournamentName);
-            Team[] allTeams = tName.GetTeams().ToArray();
+            Tournament t = tournamentRepository.GetTournament(tournamentName);
+            Team[] allTeams = t.GetTeams().ToArray();
             int[] allScores = new int[allTeams.Length];
 
-            for (int i = 0; i < tName.GetNumberOfRounds(); i++)
+            for (int i = 0; i < t.GetNumberOfRounds(); i++)
             {
-                Round round = tName.GetRound(i);
+                Round round = t.GetRound(i);
                 List<Team> winningTeams = round.GetWinningTeams();
                 for (int teamI = 0; teamI < allTeams.Length; teamI++)
                 {
@@ -63,7 +63,15 @@ namespace DragonsLair
         public void ScheduleNewRound(string tournamentName, bool printNewMatches = true)
         {
             // Do not implement this method
-
+            Tournament t = GetTournamentRepository().GetTournament(tournamentName);
+            if(tournamentName == t.Name)
+            {
+                if (t.GetNumberOfRounds() == 0)
+                {
+                    Round round = new Round();
+                    t.AddRound(round);
+                }
+            }
         }
 
         public void SaveMatch(string tournamentName, int roundNumber, string team1, string team2, string winningTeam)

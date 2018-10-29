@@ -5,7 +5,15 @@ namespace TournamentLib
     public class Round
     {
         private List<Match> matches = new List<Match>();
-        
+        private Team freeRiderTeam;
+        public Team FreeRider
+        {
+            get => freeRiderTeam;
+            set
+            {
+                freeRiderTeam = value;
+            }
+        }
         public void AddMatch(Match m)
         {
             matches.Add(m);
