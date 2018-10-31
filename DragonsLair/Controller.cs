@@ -74,9 +74,25 @@ namespace DragonsLair
             }
         }
 
-        public void SaveMatch(string tournamentName, int roundNumber, string team1, string team2, string winningTeam)
+        public void SaveMatch(string tournamentName, int round, string winningTeamName)
         {
-            // Do not implement this method
+            //refaktore nedenstående senere
+            Tournament t = tournamentRepository.GetTournament(tournamentName);
+            Round r = t.GetRound(round);
+            Match m = r.GetMatch(winningTeamName);
+
+
+            if (m != null && m.Winner == null)
+            {
+                Team w = t.GetTeam(winningTeamName);
+                //SetWinner(w) to m:Match
+                Console.WriteLine("Winner has been set");
+            }
+            else
+            {
+                //Send error
+                Console.WriteLine("Winner has NOT been set");
+            }
         }
     }
 }

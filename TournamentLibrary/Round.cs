@@ -34,7 +34,20 @@ namespace TournamentLib
             }
             return null;
         }
-        
+
+        public Match GetMatch(string team)
+        {
+
+            foreach (Match match in matches)
+            {
+                if (match.FirstOpponent.Name == team && match.Winner == null || match.SecondOpponent.Name == team && match.Winner == null)
+                {
+                    return match;
+                }
+            }
+            return null;
+        }
+
         public bool IsMatchesFinished()
         {
             /*
