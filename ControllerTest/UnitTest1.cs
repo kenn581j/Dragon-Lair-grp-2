@@ -2,8 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DragonsLair;
 using TournamentLib;
-
-
 namespace TournamentTest
 {
     [TestClass]
