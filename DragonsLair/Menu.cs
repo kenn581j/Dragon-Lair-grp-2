@@ -52,6 +52,7 @@ namespace DragonsLair
             Console.WriteLine();
             Console.Write("Indtast dit valg: ");
             return Console.ReadLine();
+            
         }
         
         private void ShowScore()

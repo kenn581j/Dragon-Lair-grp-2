@@ -11,42 +11,37 @@ namespace DragonsLair
 
         public void ShowScore(string tournamentName)
         {
-            Tournament t = tournamentRepository.GetTournament(tournamentName);
-            Team[] allTeams = t.GetTeams().ToArray();
-            int[] allScores = new int[allTeams.Length];
+            Tournament t;
+            t = tournamentRepository.GetTournament(tournamentName);
+            t.SetupTestRounds();
+            List<Team> winningTeams;
+            Team[] teams = t.GetTeams().ToArray();
+            int[] scores = new int[teams.Length];
 
             for (int i = 0; i < t.GetNumberOfRounds(); i++)
             {
-                Round round = t.GetRound(i);
-                List<Team> winningTeams = round.GetWinningTeams();
-                for (int teamI = 0; teamI < allTeams.Length; teamI++)
+                Round currentRound = t.GetRound(i);
+                winningTeams = currentRound.GetWinningTeams();
+
+                for (int a = 0; a < teams.Length; a++)
                 {
-                    for (int winningTeamI = 0; winningTeamI < winningTeams.Count; winningTeamI++)
+                    for (int winningTeam = 0; winningTeam < winningTeams.Count; winningTeam++)
                     {
-                        if (allTeams[teamI].Name == winningTeams[winningTeamI].Name)
+                        if (teams[a].Name == winningTeams[winningTeam].Name)
                         {
-                            allScores[teamI]++;
+                            scores[a]++;
                         }
                     }
                 }
             }
-            Console.Clear();
-            Console.WriteLine("0------------------------------------------------------0");
-            Console.WriteLine("|  #####                                               |");     
-            Console.WriteLine("| #     #  ######  #  #       #       #  #    #  ####  |");
-            Console.WriteLine("| #          #     #  #       #       #  ##   # #    # |");
-            Console.WriteLine("|  #####     #     #  #       #       #  # #  # #      |");
-            Console.WriteLine("|       #    #     #  #       #       #  #  # # #  ### |");
-            Console.WriteLine("| #     #    #     #  #       #       #  #   ## #    # |");
-            Console.WriteLine("|  #####     #     #  ######  ######  #  #    #  ####  |");
-            Console.WriteLine("0------------------------------------------------------0");
-            for (int num = allScores.Max(); num >= 0; num--)
+
+            for (int i = scores.Max(); i >= 0; i--)
             {
-                for (int i = 0; i < allTeams.Length; i++)
+                for (int a = 0; a < teams.Length; a++)
                 {
-                    if (allScores[i] == num)
+                    if (scores[a] == i)
                     {
-                        Console.WriteLine($"            Team: '{allTeams[i]}' - Score: {allScores[i]} point");
+                        Console.WriteLine("Team: " + teams[a] + " - Score: " + scores[a]);
                     }
                 }
             }
@@ -80,8 +75,7 @@ namespace DragonsLair
             Tournament t = tournamentRepository.GetTournament(tournamentName);
             Round r = t.GetRound(round);
             Match m = r.GetMatch(winningTeamName);
-
-
+            
             if (m != null && m.Winner == null)
             {
                 Team w = t.GetTeam(winningTeamName);
